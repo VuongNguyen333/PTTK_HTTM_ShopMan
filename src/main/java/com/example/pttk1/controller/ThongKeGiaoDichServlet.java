@@ -1,7 +1,7 @@
 package com.example.pttk1.controller;
 
-import com.example.pttk1.dao.ThongKeHangHoa803DAO;
-import com.example.pttk1.model.ThongKeHangHoa803;
+import com.example.pttk1.dao.ThongKeChiTietDonBan803DAO;
+import com.example.pttk1.model.ThongKeChiTietDonBan803;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 @WebServlet("/ThongKeGiaoDichServlet")
 public class ThongKeGiaoDichServlet extends HttpServlet {
-    private final ThongKeHangHoa803DAO thongKeHangHoa803DAO = new ThongKeHangHoa803DAO();
+    private final ThongKeChiTietDonBan803DAO thongKeChiTietDonBan803DAO = new ThongKeChiTietDonBan803DAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
@@ -32,7 +32,7 @@ public class ThongKeGiaoDichServlet extends HttpServlet {
 
         // Lấy danh sách hàng hóa từ DAO
         try {
-            List<ThongKeHangHoa803> danhSachGiaoDich = thongKeHangHoa803DAO.getThongKeGiaoDich(hangHoaId, startDateStr , endDateStr);
+            List<ThongKeChiTietDonBan803> danhSachGiaoDich = thongKeChiTietDonBan803DAO.getThongKeGiaoDich(hangHoaId, startDateStr , endDateStr);
 
             // Đưa danh sách hàng hóa vào request
             request.setAttribute("danhSachGiaoDich", danhSachGiaoDich);

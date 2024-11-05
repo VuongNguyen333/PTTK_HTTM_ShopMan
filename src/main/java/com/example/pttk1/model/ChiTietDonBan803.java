@@ -6,6 +6,9 @@ public class ChiTietDonBan803 {
     private int hangHoaId;
     private int soLuong;
 
+    public ChiTietDonBan803() {
+    }
+
     public ChiTietDonBan803(int hoaDonBanId, int hangHoaId, int soLuong) {
         this.hoaDonBanId = hoaDonBanId;
         this.hangHoaId = hangHoaId;

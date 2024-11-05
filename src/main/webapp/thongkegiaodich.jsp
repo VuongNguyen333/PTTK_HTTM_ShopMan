@@ -89,11 +89,11 @@
                     <td>HĐ${giaoDich.maHoaDon}</td>
                     <td>${giaoDich.nguoiMua}</td>
                     <td>${giaoDich.ngayBan}</td>
-                    <td>${giaoDich.soLuongBan}</td>
+                    <td>${giaoDich.soLuong}</td>
                     <td>${giaoDich.tongTien} VNĐ</td>
                 </tr>
                 <!-- Cộng dồn số lượng bán và thành tiền vào tổng -->
-                <c:set var="tongSoLuongBan" value="${tongSoLuongBan + giaoDich.soLuongBan}" />
+                <c:set var="tongSoLuongBan" value="${tongSoLuongBan + giaoDich.soLuong}" />
                 <c:set var="tongTien" value="${tongTien + giaoDich.tongTien}" />
             </c:forEach>
             <!-- Thêm hàng tổng kết -->

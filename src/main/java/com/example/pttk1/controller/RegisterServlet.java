@@ -59,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
         thanhVien803DAO.addUser(thanhVien);
-        ThanhVien803 thanhVien803 = thanhVien803DAO.getUserByUsername(username);
+        ThanhVien803 thanhVien803 = thanhVien803DAO.checkRegister(username);
         khachHang803DAO.addKhachHang(thanhVien803.getId());
         request.setAttribute("message", userAdded);
         request.getRequestDispatcher("register.jsp").forward(request, response);

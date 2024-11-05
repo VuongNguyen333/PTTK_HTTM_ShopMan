@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ThanhVien803DAOImpl implements ThanhVien803DAO {
     public String addUser(ThanhVien803 user) {
         String sql = "INSERT INTO tbl_thanhvien (username, password, hoTen, diaChi, soDienThoai, ngaySinh, gioiTinh, vaiTro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        ThanhVien803 existingUser = getUserByUsername(user.getUsername());
+        ThanhVien803 existingUser = checkRegister(user.getUsername());
         if (existingUser != null) {
             return MessageConstants.EXISTED_USER;
         }
@@ -49,7 +49,7 @@ public class ThanhVien803DAOImpl implements ThanhVien803DAO {
 
 
     // Lấy người dùng theo tên đăng nhập
-    public ThanhVien803 getUserByUsername(String username) {
+    public ThanhVien803 checkRegister(String username) {
         String sql = "SELECT * FROM tbl_thanhvien WHERE username = ?";
 
         try (Connection conn = DBUtils.getConnection();
@@ -79,7 +79,7 @@ public class ThanhVien803DAOImpl implements ThanhVien803DAO {
     }
 
     public ThanhVien803 login(String username, String password) {
-        ThanhVien803 user = getUserByUsername(username);
+        ThanhVien803 user = checkRegister(username);
         return ( user != null && user.getPassword().equals(password)) ? user : null;
     }
 }
