@@ -5,10 +5,7 @@ import com.example.pttk1.constants.VaiTroConstants;
 import com.example.pttk1.model.ThanhVien803;
 import com.example.pttk1.utils.DBUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ThanhVien803DAOImpl implements ThanhVien803DAO {
     public String addUser(ThanhVien803 user) {
@@ -22,7 +19,7 @@ public class ThanhVien803DAOImpl implements ThanhVien803DAO {
         }
 
         try (Connection conn = DBUtils.getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getHoTen());
@@ -33,10 +30,17 @@ public class ThanhVien803DAOImpl implements ThanhVien803DAO {
             statement.setString(8, VaiTroConstants.KHACH_HANG);
 
             int rowsAffected = statement.executeUpdate();
-            if(rowsAffected > 0) {
-                return MessageConstants.SIGNUP_SUCCESS;
+            if (rowsAffected > 0) {
+                // Lấy ID tự tăng của bản ghi mới
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1); // Lấy ID đầu tiên từ `getGeneratedKeys()`
+                    return String.valueOf(generatedId); // Trả về ID của bản ghi vừa được thêm
+                } else {
+                    return MessageConstants.SIGNUP_FAIL; // Trường hợp không có ID nào được trả về
+                }
             } else {
-                return MessageConstants.SIGNUP_FAIL;
+                return MessageConstants.SIGNUP_FAIL; // Trường hợp không thêm thành công
             }
         } catch (SQLException e) {
             e.printStackTrace();

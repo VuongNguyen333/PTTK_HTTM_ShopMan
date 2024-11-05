@@ -53,15 +53,13 @@ public class RegisterServlet extends HttpServlet {
 
         // Thêm người dùng vào cơ sở dữ liệu
         String userAdded = thanhVien803DAO.addUser(thanhVien);
-        if (!userAdded.equals(MessageConstants.SIGNUP_SUCCESS)) {
+        if (userAdded.equals(MessageConstants.SIGNUP_FAIL)) {
             request.setAttribute("errorMessage", userAdded);
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-        thanhVien803DAO.addUser(thanhVien);
-        ThanhVien803 thanhVien803 = thanhVien803DAO.checkRegister(username);
-        khachHang803DAO.addKhachHang(thanhVien803.getId());
-        request.setAttribute("message", userAdded);
+        khachHang803DAO.addKhachHang(Integer.parseInt(userAdded));
+        request.setAttribute("message", MessageConstants.SIGNUP_SUCCESS);
         request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 }
